@@ -1,19 +1,10 @@
 import BookShow from "./BookShow";
-import BooksContext from "../context/books";
-import { useContext } from "react";
-function BookList({ books, onDelete, onEdit }) {
-  const { count, incrementCount } = useContext(BooksContext);
+import useBooksContext from "../hooks/use-books-context";
+function BookList() {
+  const { books } = useBooksContext();
   const renderBooks = books.map((book) => {
-    return (
-      <BookShow onDelete={onDelete} onEdit={onEdit} book={book} key={book.id} />
-    );
+    return <BookShow book={book} key={book.id} />;
   });
-  return (
-    <div className="book-list">
-      {count}
-      <button onClick={incrementCount}>Click me</button>
-      {renderBooks}
-    </div>
-  );
+  return <div className="book-list">{renderBooks}</div>;
 }
 export default BookList;
